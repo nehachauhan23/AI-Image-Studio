@@ -14,7 +14,6 @@ const UserSchema = new Schema({
   },
   username: {
     type: String,
-    required: true,
     unique: true
   },
   photo: {
@@ -33,7 +32,7 @@ const UserSchema = new Schema({
   },
   planId: {
     type: String,
-    required: true
+    // required: true
   },
   creditBalance: {
     type: Number,
