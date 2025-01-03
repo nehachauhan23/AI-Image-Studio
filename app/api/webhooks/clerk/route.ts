@@ -88,6 +88,11 @@ export async function POST(req: Request) {
           userId: newUser._id,
         },
       });
+    }else{
+      console.log("new user failed ");
+      console.log("newUsernewUsernewUsernewUsernewUsernewUsernewUsernewUsernewUsernewUser",newUser);
+      
+      
     }
 
     return NextResponse.json({ message: "OK", user: newUser });
