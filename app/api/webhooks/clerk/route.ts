@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { clerkClient } from "@clerk/nextjs";
+import { clerkClient } from "@clerk/nextjs/server";
 
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
@@ -79,7 +79,7 @@ export async function POST(req: Request) {
     const newUser = await createUser(user);
 
 
-    console.log("inserted in db : ", newUser);
+    console.log("inserted in db : ", user);
     
     // Set public metadata
     if (newUser) {
