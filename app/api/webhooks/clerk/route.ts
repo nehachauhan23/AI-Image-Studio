@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { clerkClient } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs";
 
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
   // Get the headers
   const headerPayload = headers();
-  console.log("header : ", headerPayload);
+  // console.log("header : ", headerPayload);
   const svix_id = headerPayload.get("svix-id");
   const svix_timestamp = headerPayload.get("svix-timestamp");
   const svix_signature = headerPayload.get("svix-signature");
@@ -72,8 +72,15 @@ export async function POST(req: Request) {
       photo: image_url,
     };
 
+    console.log(" user created : ", user);
+    
+    // console.log("header : ", headerPayload);
+
     const newUser = await createUser(user);
 
+
+    console.log("inserted in db : ", newUser);
+    
     // Set public metadata
     if (newUser) {
       await clerkClient.users.updateUserMetadata(id, {
