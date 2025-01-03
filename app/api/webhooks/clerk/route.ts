@@ -1,12 +1,12 @@
 /* eslint-disable camelcase */
-import { clerkClient } from "@clerk/nextjs/server";
-
-import { WebhookEvent } from "@clerk/nextjs/server";
-import { headers } from "next/headers";
-import { NextResponse } from "next/server";
 import { Webhook } from "svix";
+import { headers } from "next/headers";
+import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
+
+import { NextResponse } from "next/server";
 
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
+
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -83,11 +83,18 @@ export async function POST(req: Request) {
     
     // Set public metadata
     if (newUser) {
-      await clerkClient.users.updateUserMetadata(id, {
-        publicMetadata: {
-          userId: newUser._id,
-        },
-      });
+
+      const client = await clerkClient();
+      console.log("users from clerkclient", client);
+      const count = await client.users?.getCount();
+      console.log("count : ", count);
+      
+      
+      // await clerkClient.users.updateUserMetadata(id, {
+      //   publicMetadata: {
+      //     userId: newUser._id,
+      //   },
+      // });
     }else{
       console.log("new user failed ");
       console.log("newUsernewUsernewUsernewUsernewUsernewUsernewUsernewUsernewUsernewUser",newUser);
